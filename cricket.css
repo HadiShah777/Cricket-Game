@@ -1,5 +1,6 @@
 body {
   text-align: center;
+  position: relative;  /* Ensure body positioning to place fireworks properly */
 }
 
 .choice-button {
@@ -16,7 +17,7 @@ body {
   height: 75px;
 }
 
-.reset-button{
+.reset-button {
   height: 100px;
   width: 100px;
   border: none;
@@ -42,6 +43,7 @@ body {
   }
 }
 
+/* Firework styles */
 .firework {
   position: absolute;
   width: 10px;
@@ -50,8 +52,10 @@ body {
   border-radius: 50%;
   animation: firework 1s ease-out forwards;
   pointer-events: none;
+  z-index: 9999;  /* Ensure fireworks are on top of everything */
 }
 
+/* Firework container to manage the fireworks */
 .firework-container {
   position: fixed;
   top: 0;
@@ -59,4 +63,5 @@ body {
   width: 100%;
   height: 100%;
   pointer-events: none;
+  z-index: 9999;  /* Ensure container is on top of everything */
 }
