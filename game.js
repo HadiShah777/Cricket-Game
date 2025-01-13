@@ -2,6 +2,25 @@ let scoreStr = localStorage.getItem('Score');
 let score;
 resetScore(scoreStr);
 
+// Event listeners for the buttons
+document.getElementById('bat-button').addEventListener('click', function() {
+  let computerChoice = generateComputerChoice();
+  let resultMsg = getResult('Bat', computerChoice);
+  showResult('Bat', computerChoice, resultMsg);
+});
+
+document.getElementById('ball-button').addEventListener('click', function() {
+  let computerChoice = generateComputerChoice();
+  let resultMsg = getResult('Ball', computerChoice);
+  showResult('Ball', computerChoice, resultMsg);
+});
+
+document.getElementById('stump-button').addEventListener('click', function() {
+  let computerChoice = generateComputerChoice();
+  let resultMsg = getResult('Stump', computerChoice);
+  showResult('Stump', computerChoice, resultMsg);
+});
+
 function resetScore(scoreStr) {
   score = scoreStr ? JSON.parse(scoreStr) : {
     win: 0,
@@ -34,7 +53,7 @@ function getResult(userMove, computerMove) {
     if (computerMove === 'Ball') {
       score.win++;
       resultMsg = 'User won.';
-      triggerFireworks();  // Fireworks when user wins
+      triggerConfetti();  // Trigger confetti when user wins
     } else if (computerMove === 'Bat') {
       score.tie++;
       resultMsg = `It's a tie`;
@@ -52,7 +71,7 @@ function getResult(userMove, computerMove) {
     } else if (computerMove === 'Stump') {
       score.win++;
       resultMsg = 'User won.';
-      triggerFireworks();  // Fireworks when user wins
+      triggerConfetti();  // Trigger confetti when user wins
     }
   } else {
     if (computerMove === 'Ball') {
@@ -61,7 +80,7 @@ function getResult(userMove, computerMove) {
     } else if (computerMove === 'Bat') {
       score.win++;
       resultMsg = 'User won.';
-      triggerFireworks();  // Fireworks when user wins
+      triggerConfetti();  // Trigger confetti when user wins
     } else if (computerMove === 'Stump') {
       score.tie++;
       resultMsg = `It's a tie`;
@@ -83,25 +102,26 @@ function showResult(userMove, computerMove, result) {
   document.querySelector('#score').innerText = score.displayScore();
 }
 
-// Fireworks animation
-function triggerFireworks() {
-  const fireworkContainer = document.createElement('div');
-  fireworkContainer.classList.add('firework-container');
-  document.body.appendChild(fireworkContainer);
+// Confetti animation function
+function triggerConfetti() {
+  const confettiContainer = document.createElement('div');
+  confettiContainer.classList.add('confetti-container');
+  document.body.appendChild(confettiContainer);
 
-  for (let i = 0; i < 50; i++) {
-    const firework = document.createElement('div');
-    firework.classList.add('firework');
-    firework.style.left = `${Math.random() * window.innerWidth}px`;
-    firework.style.top = `${Math.random() * window.innerHeight}px`;
-    fireworkContainer.appendChild(firework);
-
-    setTimeout(() => {
-      firework.remove();
-    }, 1000); // Remove firework after animation completes
+  const colors = ['#FF5733', '#33FF57', '#5733FF', '#FF33A1', '#FF9F33'];
+  const numberOfConfetti = 150;  // Increase the number of confetti elements
+  
+  for (let i = 0; i < numberOfConfetti; i++) {
+    const confetti = document.createElement('div');
+    confetti.classList.add('confetti');
+    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    confetti.style.left = `${Math.random() * window.innerWidth}px`;
+    confetti.style.animationDuration = `${Math.random() * 3 + 2}s`; // Random duration between 2 and 5 seconds
+    confetti.style.animationDelay = `${Math.random() * 1}s`; // Random delay
+    confettiContainer.appendChild(confetti);
   }
 
   setTimeout(() => {
-    fireworkContainer.remove();  // Remove container after all fireworks are done
-  }, 1500);
+    confettiContainer.remove();  // Remove the confetti container after celebration
+  }, 3000);  // Keep confetti for at least 3 seconds
 }
