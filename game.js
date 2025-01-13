@@ -34,7 +34,7 @@ function getResult(userMove, computerMove) {
     if (computerMove === 'Ball') {
       score.win++;
       resultMsg = 'User won.';
-      triggerFireworks();  // Trigger fireworks
+      triggerFireworks();  // Fireworks when user wins
     } else if (computerMove === 'Bat') {
       score.tie++;
       resultMsg = `It's a tie`;
@@ -52,7 +52,7 @@ function getResult(userMove, computerMove) {
     } else if (computerMove === 'Stump') {
       score.win++;
       resultMsg = 'User won.';
-      triggerFireworks();  // Trigger fireworks
+      triggerFireworks();  // Fireworks when user wins
     }
   } else {
     if (computerMove === 'Ball') {
@@ -61,7 +61,7 @@ function getResult(userMove, computerMove) {
     } else if (computerMove === 'Bat') {
       score.win++;
       resultMsg = 'User won.';
-      triggerFireworks();  // Trigger fireworks
+      triggerFireworks();  // Fireworks when user wins
     } else if (computerMove === 'Stump') {
       score.tie++;
       resultMsg = `It's a tie`;
@@ -83,6 +83,7 @@ function showResult(userMove, computerMove, result) {
   document.querySelector('#score').innerText = score.displayScore();
 }
 
+// Fireworks animation
 function triggerFireworks() {
   const fireworkContainer = document.createElement('div');
   fireworkContainer.classList.add('firework-container');
